@@ -1,0 +1,28 @@
+# Node y Angular
+node_modules/
+dist/
+.tmp/
+coverage/
+
+# Archivos de configuración locales
+.env
+*.local
+*.log
+
+# Archivos sensibles
+copilot-instructions.md
+copilot-cli/
+enunciado/
+*.secret
+*.key
+
+# Artefactos de compilación
+src/app/analizadores/generados/*.js
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE
+.vscode/
+.idea/
