@@ -1,0 +1,71 @@
+<div class="fondo-modal" (click)="emitir_cierre_modal()"></div>
+
+<div class="modal-color-contenedor">
+  <div class="modal-color" (click)="$event.stopPropagation()">
+    <div class="modal-color-encabezado">
+      <h3 class="titulo-modal">Asignador de Color</h3>
+    </div>
+
+    <div class="modal-color-cuerpo">
+      <p class="texto-ayuda mb-2">Selecciona un color y define el formato de insercion.</p>
+
+      <div class="lista-colores">
+        @for (color of colores_predefinidos; track color.nombre; let indice = $index) {
+          <button
+            type="button"
+            class="boton-color"
+            [class.boton-color-activo]="es_color_predefinido_activo(indice)"
+            (click)="seleccionar_color(indice)"
+          >
+            <span class="muestra-color" [style.background-color]="color.codigo_hex"></span>
+            <span>{{ color.nombre }}</span>
+          </button>
+        }
+      </div>
+
+      <div class="seccion-color-personalizado mt-3">
+        <label class="etiqueta-color-personalizado" for="selector_color_personalizado">
+          Color Personalizado
+        </label>
+        <div class="contenedor-color-personalizado">
+          <input
+            id="selector_color_personalizado"
+            type="color"
+            class="selector-color-personalizado"
+            [value]="codigo_hex_activo"
+            (input)="actualizar_color_personalizado($event)"
+          />
+          <span class="valor-color-personalizado">{{ codigo_hex_activo }}</span>
+        </div>
+      </div>
+
+      <div class="selector-formato mt-3">
+        <label class="opcion-formato">
+          <input
+            type="radio"
+            name="formato_color"
+            [checked]="formato_actual === 'HEX'"
+            (change)="seleccionar_formato('HEX')"
+          />
+          HEX
+        </label>
+        <label class="opcion-formato">
+          <input
+            type="radio"
+            name="formato_color"
+            [checked]="formato_actual === 'RGB'"
+            (change)="seleccionar_formato('RGB')"
+          />
+          RGB
+        </label>
+      </div>
+
+      <p class="codigo-resultado mt-3 mb-0">{{ obtener_codigo_color_activo() }}</p>
+    </div>
+
+    <div class="modal-color-pie">
+      <button type="button" class="btn boton-secundario" (click)="emitir_cierre_modal()">Cancelar</button>
+      <button type="button" class="btn boton-principal" (click)="emitir_insercion_color()">INSERTAR</button>
+    </div>
+  </div>
+</div>

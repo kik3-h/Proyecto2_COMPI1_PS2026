@@ -1,207 +1,30 @@
-<div
-  class="contenedor-ide d-flex flex-column"
-  [style.--color-dorado]="color_dorado_personalizado()"
-  (click)="cerrar_menus()"
->
-  <header class="encabezado-ide px-3 py-2">
-    <div class="fila-superior-encabezado d-flex align-items-center justify-content-between">
-      <div class="d-flex align-items-center gap-3">
-        <h1 class="titulo-framework mb-0">{{ titulo_framework }}</h1>
-
-        <nav class="d-flex align-items-center gap-2">
-          <div class="dropdown" (click)="$event.stopPropagation()">
-            <button
-              type="button"
-              class="btn boton-menu dropdown-toggle"
-              (click)="alternar_menu('archivo', $event)"
-            >
-              Archivo
-            </button>
-            <ul class="dropdown-menu menu-desplegable" [class.show]="menu_abierto() === 'archivo'">
-              <li>
-                <button type="button" class="dropdown-item" (click)="abrir_modal_creacion('archivo')">
-                  Nuevo Archivo
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  class="dropdown-item"
-                  (click)="abrir_modal_creacion('directorio')"
-                >
-                  Nueva Carpeta
-                </button>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <button type="button" class="dropdown-item" (click)="guardar_archivo_activo()">
-                  Guardar
-                </button>
-              </li>
-              <li>
-                <button type="button" class="dropdown-item" (click)="eliminar_archivo_activo()">
-                  Eliminar
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          <div class="dropdown" (click)="$event.stopPropagation()">
-            <button
-              type="button"
-              class="btn boton-menu dropdown-toggle"
-              (click)="alternar_menu('vista', $event)"
-            >
-              Vista
-            </button>
-            <ul class="dropdown-menu menu-desplegable" [class.show]="menu_abierto() === 'vista'">
-              <li>
-                <button type="button" class="dropdown-item" (click)="alternar_consola()">
-                  Ver Consola
-                </button>
-              </li>
-              <li>
-                <button type="button" class="dropdown-item" (click)="registrar_ver_errores()">
-                  Ver Errores
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          <div class="dropdown" (click)="$event.stopPropagation()">
-            <button
-              type="button"
-              class="btn boton-menu dropdown-toggle"
-              (click)="alternar_menu('ayuda', $event)"
-            >
-              Ayuda
-            </button>
-            <ul class="dropdown-menu menu-desplegable" [class.show]="menu_abierto() === 'ayuda'">
-              <li>
-                <button type="button" class="dropdown-item" (click)="registrar_ayuda()">
-                  Acerca de YFERA
-                </button>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-
-      <div class="d-flex gap-2">
-        <button type="button" class="btn boton-principal" (click)="registrar_vista_previa()">
-          VISTA PREVIA
-        </button>
-        <button type="button" class="btn boton-principal" (click)="registrar_compilacion()">
-          COMPILAR
-        </button>
-      </div>
-    </div>
-
-    <div class="barra-herramientas mt-2 d-flex align-items-center flex-wrap gap-2">
-      <input
-        #selector_color
-        type="color"
-        class="selector-color-invisible"
-        (input)="actualizar_color_dorado($event)"
-      />
-
-      <button type="button" class="btn boton-herramienta" (click)="activar_selector_color(selector_color)">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 2 4 14h5l-1 8 8-12h-5z"></path>
-        </svg>
-        Selector de Color
-      </button>
-
-      <button type="button" class="btn boton-herramienta" (click)="aplicar_auto_indentar()">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4 6h16v2H4zm0 5h10v2H4zm0 5h16v2H4z"></path>
-        </svg>
-        Auto-indentar
-      </button>
-
-      <button type="button" class="btn boton-herramienta" (click)="guardar_archivo_activo()">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M5 3h12l4 4v14H5zm2 2v4h10V5zm0 8v6h10v-6z"></path>
-        </svg>
-        Guardar
-      </button>
-
-      <button type="button" class="btn boton-herramienta" (click)="eliminar_archivo_activo()">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M7 6h10l-1 14H8zm3-3h4l1 2h4v2H5V5h4z"></path>
-        </svg>
-        Eliminar
-      </button>
-
-      <button type="button" class="btn boton-herramienta" (click)="registrar_ver_errores()">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3 2 21h20zM11 9h2v6h-2zm0 7h2v2h-2z"></path>
-        </svg>
-        Ver Errores
-      </button>
-
-      <button type="button" class="btn boton-herramienta" (click)="alternar_consola()">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M3 5h18v14H3zm2 2v10h14V7zm2 2 3 3-3 3-1-1 2-2-2-2zm5 5h6v2h-6z"></path>
-        </svg>
-        Ver Consola
-      </button>
-    </div>
-  </header>
+<div class="contenedor-ide d-flex flex-column">
+  <app-banner-superior
+    [titulo_framework]="titulo_framework"
+    (solicitud_crear_elemento)="abrir_modal_creacion($event)"
+    (solicitud_guardar)="guardar_archivo_activo()"
+    (solicitud_eliminar)="eliminar_elemento_seleccionado()"
+    (solicitud_ver_errores)="registrar_ver_errores()"
+    (solicitud_alternar_consola)="alternar_consola()"
+    (solicitud_vista_previa)="registrar_vista_previa()"
+    (solicitud_compilar)="registrar_compilacion()"
+    (solicitud_ayuda)="registrar_ayuda()"
+    (solicitud_auto_indentado)="aplicar_auto_indentar_editor()"
+    (solicitud_abrir_asignador_color)="abrir_modal_asignador_color()"
+    (archivo_sqlite_seleccionado)="registrar_archivo_sqlite_seleccionado($event)"
+  ></app-banner-superior>
 
   <div class="contenido-ide d-flex flex-grow-1 overflow-hidden">
-    <aside class="barra-lateral p-3">
-      <div class="d-flex align-items-center justify-content-between mb-2">
-        <h2 class="subtitulo-panel mb-0">Explorador de Archivos</h2>
-        <div class="d-flex gap-1">
-          <button
-            type="button"
-            class="btn boton-explorador"
-            (click)="abrir_modal_creacion('archivo')"
-          >
-            +A
-          </button>
-          <button
-            type="button"
-            class="btn boton-explorador"
-            (click)="abrir_modal_creacion('directorio')"
-          >
-            +D
-          </button>
-        </div>
-      </div>
-
-      <div class="arbol-archivos">
-        <div class="nodo-directorio">/</div>
-
-        @for (archivo of obtener_archivos_hijos('/'); track archivo.ruta) {
-          <button
-            type="button"
-            class="nodo-archivo nivel-1"
-            [class.nodo-activo]="ruta_archivo_activo() === archivo.ruta"
-            (click)="abrir_archivo(archivo.ruta)"
-          >
-            <span class="icono-archivo">{{ obtener_icono_archivo(archivo.nombre) }}</span>
-            <span>{{ archivo.nombre }}</span>
-          </button>
-        }
-
-        @for (directorio of obtener_directorios_hijos('/'); track directorio.ruta) {
-          <div class="nodo-directorio nivel-1">DIR {{ directorio.nombre }}</div>
-
-          @for (archivo of obtener_archivos_hijos(directorio.ruta); track archivo.ruta) {
-            <button
-              type="button"
-              class="nodo-archivo nivel-2"
-              [class.nodo-activo]="ruta_archivo_activo() === archivo.ruta"
-              (click)="abrir_archivo(archivo.ruta)"
-            >
-              <span class="icono-archivo">{{ obtener_icono_archivo(archivo.nombre) }}</span>
-              <span>{{ archivo.nombre }}</span>
-            </button>
-          }
-        }
-      </div>
+    <aside class="barra-lateral">
+      <app-explorador-archivos
+        [directorios_explorador]="directorios_explorador()"
+        [archivos_explorador]="archivos_explorador()"
+        [ruta_archivo_activo]="ruta_archivo_activo()"
+        [seleccion_actual]="seleccion_explorador()"
+        (solicitud_creacion)="abrir_modal_creacion($event)"
+        (seleccion_cambiada)="manejar_seleccion_explorador($event)"
+        (abrir_archivo_solicitado)="manejar_apertura_archivo_desde_explorador($event)"
+      ></app-explorador-archivos>
     </aside>
 
     <section class="panel-central d-flex flex-column flex-grow-1">
@@ -218,10 +41,7 @@
                 (click)="seleccionar_pestana(archivo_abierto.ruta)"
               >
                 <span class="nombre-pestana">{{ archivo_abierto.nombre }}</span>
-                <span
-                  class="boton-cierre-pestana"
-                  (click)="cerrar_pestana(archivo_abierto.ruta, $event)"
-                >
+                <span class="boton-cierre-pestana" (click)="cerrar_pestana(archivo_abierto.ruta, $event)">
                   X
                 </span>
               </button>
@@ -240,12 +60,11 @@
 
       @if (mostrar_terminal()) {
         <div class="panel-terminal p-3">
-          <h2 class="subtitulo-panel mb-2">Terminal YFERA</h2>
-          <div class="terminal-contenido">
-            @for (linea of lineas_terminal(); track $index) {
-              <p class="linea-terminal mb-1">{{ linea }}</p>
-            }
-          </div>
+          <app-terminal-consola
+            [lineas_historial]="lineas_terminal()"
+            (comando_procesado)="procesar_comando_terminal($event)"
+            (limpiar_solicitado)="limpiar_historial_terminal()"
+          ></app-terminal-consola>
         </div>
       }
     </section>
@@ -266,9 +85,7 @@
             </h3>
           </div>
           <div class="modal-body">
-            <label class="form-label texto-modal-label" for="nombre_elemento_modal">
-              Nombre
-            </label>
+            <label class="form-label texto-modal-label" for="nombre_elemento_modal">Nombre</label>
             <input
               id="nombre_elemento_modal"
               type="text"
@@ -289,5 +106,12 @@
         </div>
       </div>
     </div>
+  }
+
+  @if (modal_asignador_color_visible()) {
+    <app-asignador-color
+      (insertar_color_solicitado)="insertar_color_desde_asignador($event)"
+      (cerrar_solicitado)="cerrar_modal_asignador_color()"
+    ></app-asignador-color>
   }
 </div>

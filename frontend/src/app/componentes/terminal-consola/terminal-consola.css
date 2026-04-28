@@ -1,0 +1,78 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.subtitulo-panel {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-dorado);
+  letter-spacing: 0.03rem;
+  text-transform: uppercase;
+}
+
+.boton-limpiar {
+  border: 1px solid rgba(237, 187, 0, 0.6);
+  color: var(--texto-principal);
+  background-color: rgba(165, 0, 68, 0.45);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.boton-limpiar:hover {
+  background-color: rgba(165, 0, 68, 0.8);
+  color: #ffffff;
+}
+
+.historial-terminal {
+  flex: 1;
+  min-height: 90px;
+  width: 100%;
+  resize: none;
+  border: 1px solid var(--color-grana);
+  border-radius: 0.4rem;
+  background-color: #000f21;
+  color: var(--texto-principal);
+  padding: 0.55rem 0.7rem;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 0.84rem;
+}
+
+.historial-terminal:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.1rem rgba(237, 187, 0, 0.25);
+}
+
+.entrada-terminal {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+}
+
+.prompt-terminal {
+  color: var(--color-dorado);
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.campo-comando {
+  flex: 1;
+  border: 1px solid rgba(237, 187, 0, 0.45);
+  background-color: #001a33;
+  color: var(--texto-principal);
+  border-radius: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 0.84rem;
+}
+
+.campo-comando:focus {
+  outline: none;
+  border-color: var(--color-dorado);
+  box-shadow: 0 0 0 0.1rem rgba(237, 187, 0, 0.2);
+}

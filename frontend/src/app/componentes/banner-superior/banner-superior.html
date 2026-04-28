@@ -1,0 +1,156 @@
+<header class="encabezado-ide px-3 py-2">
+  <div class="fila-superior-encabezado d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center gap-3">
+      <h1 class="titulo-framework mb-0">{{ titulo_framework }}</h1>
+
+      <nav class="d-flex align-items-center gap-2">
+        <div class="dropdown" (click)="$event.stopPropagation()">
+          <button
+            type="button"
+            class="btn boton-menu dropdown-toggle"
+            (click)="alternar_menu('archivo', $event)"
+          >
+            Archivo
+          </button>
+          <ul class="dropdown-menu menu-desplegable" [class.show]="menu_abierto() === 'archivo'">
+            <li>
+              <button type="button" class="dropdown-item" (click)="emitir_creacion_elemento('archivo')">
+                Nuevo Archivo
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="dropdown-item"
+                (click)="emitir_creacion_elemento('directorio')"
+              >
+                Nueva Carpeta
+              </button>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <button type="button" class="dropdown-item" (click)="emitir_guardado()">
+                Guardar
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item" (click)="emitir_eliminacion()">
+                Eliminar
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item" (click)="abrir_selector_sqlite(selector_db)">
+                Subir DB SQLite
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="dropdown" (click)="$event.stopPropagation()">
+          <button
+            type="button"
+            class="btn boton-menu dropdown-toggle"
+            (click)="alternar_menu('vista', $event)"
+          >
+            Vista
+          </button>
+          <ul class="dropdown-menu menu-desplegable" [class.show]="menu_abierto() === 'vista'">
+            <li>
+              <button type="button" class="dropdown-item" (click)="emitir_alternar_consola()">
+                Ver Consola
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item" (click)="emitir_ver_errores()">
+                Ver Errores
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="dropdown" (click)="$event.stopPropagation()">
+          <button
+            type="button"
+            class="btn boton-menu dropdown-toggle"
+            (click)="alternar_menu('ayuda', $event)"
+          >
+            Ayuda
+          </button>
+          <ul class="dropdown-menu menu-desplegable" [class.show]="menu_abierto() === 'ayuda'">
+            <li>
+              <button type="button" class="dropdown-item" (click)="emitir_ayuda()">Acerca de YFERA</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button type="button" class="btn boton-principal" (click)="emitir_vista_previa()">
+        VISTA PREVIA
+      </button>
+      <button type="button" class="btn boton-principal" (click)="emitir_compilar()">
+        COMPILAR
+      </button>
+    </div>
+  </div>
+
+  <div class="barra-herramientas mt-2 d-flex align-items-center flex-wrap gap-2">
+    <input
+      #selector_db
+      type="file"
+      class="selector-db-invisible"
+      accept=".sqlite,.db"
+      (change)="notificar_archivo_sqlite($event)"
+    />
+
+    <button type="button" class="btn boton-herramienta" (click)="emitir_abrir_asignador_color()">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2 4 14h5l-1 8 8-12h-5z"></path>
+      </svg>
+      Asignador de Color
+    </button>
+
+    <button type="button" class="btn boton-herramienta" (click)="emitir_auto_indentado()">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 6h16v2H4zm0 5h10v2H4zm0 5h16v2H4z"></path>
+      </svg>
+      Auto-indentar
+    </button>
+
+    <button type="button" class="btn boton-herramienta" (click)="emitir_guardado()">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 3h12l4 4v14H5zm2 2v4h10V5zm0 8v6h10v-6z"></path>
+      </svg>
+      Guardar
+    </button>
+
+    <button type="button" class="btn boton-herramienta" (click)="emitir_eliminacion()">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 6h10l-1 14H8zm3-3h4l1 2h4v2H5V5h4z"></path>
+      </svg>
+      Eliminar
+    </button>
+
+    <button type="button" class="btn boton-herramienta" (click)="abrir_selector_sqlite(selector_db)">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3c5 0 9 1.3 9 3s-4 3-9 3-9-1.3-9-3 4-3 9-3zm-9 6v3c0 1.7 4 3 9 3s9-1.3 9-3V9c-2 1.4-5.7 2-9 2s-7-.6-9-2zm0 6v3c0 1.7 4 3 9 3s9-1.3 9-3v-3c-2 1.4-5.7 2-9 2s-7-.6-9-2z"></path>
+      </svg>
+      Subir DB SQLite
+    </button>
+
+    <button type="button" class="btn boton-herramienta" (click)="emitir_ver_errores()">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3 2 21h20zM11 9h2v6h-2zm0 7h2v2h-2z"></path>
+      </svg>
+      Ver Errores
+    </button>
+
+    <button type="button" class="btn boton-herramienta" (click)="emitir_alternar_consola()">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 5h18v14H3zm2 2v10h14V7zm2 2 3 3-3 3-1-1 2-2-2-2zm5 5h6v2h-6z"></path>
+      </svg>
+      Ver Consola
+    </button>
+  </div>
+</header>

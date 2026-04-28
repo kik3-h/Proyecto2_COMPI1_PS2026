@@ -1,0 +1,93 @@
+:host {
+  display: block;
+  height: 100%;
+  background: linear-gradient(180deg, var(--color-azul-profundo) 0%, var(--color-azul-oscuro) 100%);
+  overflow-y: auto;
+  padding: 0.75rem;
+}
+
+.subtitulo-panel {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-dorado);
+  letter-spacing: 0.03rem;
+  text-transform: uppercase;
+}
+
+.boton-explorador {
+  min-width: 38px;
+  background-color: rgba(165, 0, 68, 0.5);
+  color: var(--texto-principal);
+  border: 1px solid var(--color-dorado);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.boton-explorador:hover {
+  background-color: rgba(165, 0, 68, 0.8);
+  color: #ffffff;
+}
+
+.arbol-archivos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.nodo-directorio {
+  color: var(--color-dorado);
+  font-weight: 700;
+  font-size: 0.84rem;
+  padding: 0.28rem 0.5rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.35rem;
+  text-align: left;
+}
+
+.nodo-raiz {
+  margin-left: 0;
+}
+
+.nodo-directorio:hover {
+  background-color: rgba(237, 187, 0, 0.12);
+  border-color: rgba(237, 187, 0, 0.5);
+}
+
+.nodo-archivo {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.35rem;
+  color: var(--texto-secundario);
+  padding: 0.3rem 0.5rem;
+}
+
+.nodo-archivo:hover {
+  background-color: rgba(237, 187, 0, 0.12);
+  border-color: rgba(237, 187, 0, 0.5);
+}
+
+.icono-archivo {
+  width: 2.3rem;
+  display: inline-flex;
+  justify-content: center;
+  font-family: "Consolas", "Courier New", monospace;
+  color: var(--color-dorado);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.nodo-activo {
+  background-color: rgba(165, 0, 68, 0.5);
+  border-color: var(--color-dorado);
+  color: #ffffff;
+}
+
+.nodo-seleccionado {
+  border-color: var(--color-dorado);
+  box-shadow: inset 0 0 0 1px rgba(237, 187, 0, 0.35);
+}

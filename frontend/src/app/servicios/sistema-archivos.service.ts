@@ -139,11 +139,14 @@ export class SistemaArchivosServicio {
     const ruta_normalizada = this.normalizar_ruta(ruta_archivo);
     const archivo_actual = await this.buscar_archivo_por_ruta(ruta_normalizada);
 
-    if (archivo_actual === undefined || archivo_actual.id === undefined) {
+    if (archivo_actual === undefined) {
       throw new Error(`No existe el archivo solicitado: ${ruta_normalizada}`);
     }
 
-    await this.base_datos.archivos.update(archivo_actual.id, {
+    // Correccion de tipado estricto: se valida y extrae un id numerico antes de enviarlo a Dexie.
+    const id_archivo_actual = this.obtener_id_elemento_para_dexie(archivo_actual.id, ruta_normalizada);
+
+    await this.base_datos.archivos.update(id_archivo_actual, {
       contenido: contenido_actualizado,
       fecha_actualizacion: Date.now()
     });
@@ -170,11 +173,46 @@ export class SistemaArchivosServicio {
     const ruta_normalizada = this.normalizar_ruta(ruta_archivo);
     const archivo_actual = await this.buscar_archivo_por_ruta(ruta_normalizada);
 
-    if (archivo_actual === undefined || archivo_actual.id === undefined) {
+    if (archivo_actual === undefined) {
       throw new Error(`No existe el archivo solicitado: ${ruta_normalizada}`);
     }
 
-    await this.base_datos.archivos.delete(archivo_actual.id);
+    // Correccion de tipado estricto: se evita pasar number | undefined a delete() de Dexie.
+    const id_archivo_actual = this.obtener_id_elemento_para_dexie(archivo_actual.id, ruta_normalizada);
+    await this.base_datos.archivos.delete(id_archivo_actual);
+  }
+
+  /** Elimina un directorio y todos sus descendientes para que el padre sincronice explorador y editor. */
+  public async eliminar_directorio(ruta_directorio: string): Promise<void> {
+    const ruta_normalizada = this.normalizar_ruta(ruta_directorio);
+
+    if (ruta_normalizada === '/') {
+      throw new Error('No se permite eliminar el directorio raiz.');
+    }
+
+    const directorio_actual = await this.buscar_directorio_por_ruta(ruta_normalizada);
+
+    if (directorio_actual === undefined) {
+      throw new Error(`No existe el directorio solicitado: ${ruta_normalizada}`);
+    }
+
+    // Correccion de tipado estricto: se convierte a number seguro previo a delete() en Dexie.
+    const id_directorio_actual = this.obtener_id_elemento_para_dexie(
+      directorio_actual.id,
+      ruta_normalizada
+    );
+    const prefijo_descendientes = `${ruta_normalizada}/`;
+
+    await this.base_datos.transaction(
+      'rw',
+      this.base_datos.directorios,
+      this.base_datos.archivos,
+      async () => {
+        await this.base_datos.archivos.where('ruta').startsWith(prefijo_descendientes).delete();
+        await this.base_datos.directorios.where('ruta').startsWith(prefijo_descendientes).delete();
+        await this.base_datos.directorios.delete(id_directorio_actual);
+      }
+    );
   }
 
   /** Asegura formato de ruta absoluta sin barra final innecesaria. */
@@ -251,8 +289,14 @@ export class SistemaArchivosServicio {
     const archivo_existente = await this.buscar_archivo_por_ruta(ruta_archivo);
     const fecha_actual = Date.now();
 
-    if (archivo_existente !== undefined && archivo_existente.id !== undefined) {
-      await this.base_datos.archivos.update(archivo_existente.id, {
+    if (archivo_existente !== undefined) {
+      // Correccion de tipado estricto: se asegura id numerico para update() del archivo base existente.
+      const id_archivo_existente = this.obtener_id_elemento_para_dexie(
+        archivo_existente.id,
+        archivo_existente.ruta
+      );
+
+      await this.base_datos.archivos.update(id_archivo_existente, {
         contenido,
         fecha_actualizacion: fecha_actual
       });
@@ -267,5 +311,17 @@ export class SistemaArchivosServicio {
       fecha_creacion: fecha_actual,
       fecha_actualizacion: fecha_actual
     });
+  }
+
+  /**
+   * Valida el id opcional proveniente de IndexedDB y devuelve un number seguro para operaciones Dexie.
+   * Esta funcion centraliza la correccion de TS2345 evitando enviar number | undefined a delete/update/equals.
+   */
+  private obtener_id_elemento_para_dexie(id_elemento: number | undefined, ruta_elemento: string): number {
+    if (id_elemento === undefined) {
+      throw new Error(`El elemento no posee id valido para operar en Dexie: ${ruta_elemento}`);
+    }
+
+    return id_elemento;
   }
 }

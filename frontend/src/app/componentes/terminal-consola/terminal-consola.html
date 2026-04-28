@@ -1,0 +1,26 @@
+<div class="encabezado-terminal d-flex align-items-center justify-content-between mb-2">
+  <h2 class="subtitulo-panel mb-0">Terminal YFERA</h2>
+  <button type="button" class="btn boton-limpiar" (click)="solicitar_limpieza_historial()">
+    Limpiar Consola
+  </button>
+</div>
+
+<textarea
+  #historial_terminal
+  class="historial-terminal"
+  readonly
+  [value]="lineas_historial.join('\n')"
+></textarea>
+
+<div class="entrada-terminal mt-2">
+  <span class="prompt-terminal">yfera@workspace:~$</span>
+  <input
+    type="text"
+    class="campo-comando"
+    [value]="comando_actual"
+    (input)="actualizar_comando($event)"
+    (keydown)="procesar_tecla($event)"
+    autocomplete="off"
+    spellcheck="false"
+  />
+</div>

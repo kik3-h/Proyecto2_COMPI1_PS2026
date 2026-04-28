@@ -1,0 +1,101 @@
+:host {
+  display: block;
+}
+
+.encabezado-ide {
+  background: linear-gradient(90deg, var(--color-azul-profundo) 0%, var(--color-azul-principal) 100%);
+  border-bottom: 2px solid var(--color-grana);
+}
+
+.fila-superior-encabezado {
+  min-height: 56px;
+}
+
+.titulo-framework {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-dorado);
+  letter-spacing: 0.04rem;
+}
+
+.boton-menu {
+  color: var(--texto-principal);
+  border: 1px solid rgba(237, 187, 0, 0.45);
+  background-color: transparent;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.boton-menu:hover,
+.boton-menu:focus {
+  color: #ffffff;
+  background-color: rgba(165, 0, 68, 0.4);
+  border-color: var(--color-dorado);
+}
+
+.menu-desplegable {
+  background-color: #002b56;
+  border: 1px solid var(--color-grana);
+}
+
+.menu-desplegable .dropdown-item {
+  color: var(--texto-principal);
+}
+
+.menu-desplegable .dropdown-item:hover {
+  background-color: rgba(165, 0, 68, 0.45);
+}
+
+.menu-desplegable .dropdown-divider {
+  border-top-color: rgba(237, 187, 0, 0.35);
+}
+
+.boton-principal {
+  background-color: var(--color-grana);
+  border: 1px solid var(--color-dorado);
+  color: var(--texto-principal);
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.boton-principal:hover,
+.boton-principal:focus {
+  background-color: #830036;
+  color: #ffffff;
+}
+
+.barra-herramientas {
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(237, 187, 0, 0.25);
+}
+
+.selector-db-invisible {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.boton-herramienta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: #00335f;
+  color: var(--texto-principal);
+  border: 1px solid rgba(237, 187, 0, 0.55);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.boton-herramienta:hover,
+.boton-herramienta:focus {
+  background-color: rgba(165, 0, 68, 0.45);
+  color: #ffffff;
+}
+
+.boton-herramienta svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: var(--color-dorado);
+}

@@ -1,0 +1,48 @@
+<div class="encabezado-explorador d-flex align-items-center justify-content-between mb-2">
+  <h2 class="subtitulo-panel mb-0">Explorador de Archivos</h2>
+  <div class="d-flex gap-1">
+    <button type="button" class="btn boton-explorador" (click)="emitir_solicitud_creacion('archivo')">
+      +A
+    </button>
+    <button type="button" class="btn boton-explorador" (click)="emitir_solicitud_creacion('directorio')">
+      +D
+    </button>
+  </div>
+</div>
+
+<div class="arbol-archivos">
+  <button
+    type="button"
+    class="nodo-directorio nodo-raiz"
+    [class.nodo-seleccionado]="seleccion_actual?.tipo === 'directorio' && seleccion_actual?.ruta === '/'"
+    (click)="seleccionar_directorio('/')"
+  >
+    /
+  </button>
+
+  @for (nodo of obtener_nodos_visuales(); track nodo.ruta) {
+    @if (nodo.tipo === 'directorio') {
+      <button
+        type="button"
+        class="nodo-directorio"
+        [class.nodo-seleccionado]="es_nodo_seleccionado(nodo)"
+        [style.margin-left.rem]="nodo.profundidad * 0.7"
+        (click)="seleccionar_directorio(nodo.ruta)"
+      >
+        DIR {{ nodo.nombre }}
+      </button>
+    } @else {
+      <button
+        type="button"
+        class="nodo-archivo"
+        [class.nodo-activo]="es_archivo_activo(nodo.ruta)"
+        [class.nodo-seleccionado]="es_nodo_seleccionado(nodo)"
+        [style.margin-left.rem]="nodo.profundidad * 0.7"
+        (click)="abrir_archivo_desde_arbol(nodo.ruta)"
+      >
+        <span class="icono-archivo">{{ obtener_icono_archivo(nodo.nombre) }}</span>
+        <span>{{ nodo.nombre }}</span>
+      </button>
+    }
+  }
+</div>

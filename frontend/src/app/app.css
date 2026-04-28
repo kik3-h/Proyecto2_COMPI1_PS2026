@@ -21,189 +21,14 @@
   background: var(--color-azul-principal);
 }
 
-.encabezado-ide {
-  background: linear-gradient(90deg, var(--color-azul-profundo) 0%, var(--color-azul-principal) 100%);
-  border-bottom: 2px solid var(--color-grana);
-}
-
-.fila-superior-encabezado {
-  min-height: 56px;
-}
-
-.titulo-framework {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--color-dorado);
-  letter-spacing: 0.04rem;
-}
-
-.boton-menu {
-  color: var(--texto-principal);
-  border: 1px solid rgba(237, 187, 0, 0.45);
-  background-color: transparent;
-  font-weight: 600;
-  font-size: 0.88rem;
-}
-
-.boton-menu:hover,
-.boton-menu:focus {
-  color: #ffffff;
-  background-color: rgba(165, 0, 68, 0.4);
-  border-color: var(--color-dorado);
-}
-
-.menu-desplegable {
-  background-color: #002b56;
-  border: 1px solid var(--color-grana);
-}
-
-.menu-desplegable .dropdown-item {
-  color: var(--texto-principal);
-}
-
-.menu-desplegable .dropdown-item:hover {
-  background-color: rgba(165, 0, 68, 0.45);
-}
-
-.menu-desplegable .dropdown-divider {
-  border-top-color: rgba(237, 187, 0, 0.35);
-}
-
-.boton-principal {
-  background-color: var(--color-grana);
-  border: 1px solid var(--color-dorado);
-  color: var(--texto-principal);
-  font-weight: 700;
-  font-size: 0.82rem;
-}
-
-.boton-principal:hover,
-.boton-principal:focus {
-  background-color: #830036;
-  color: #ffffff;
-}
-
-.barra-herramientas {
-  padding-top: 0.4rem;
-  border-top: 1px solid rgba(237, 187, 0, 0.25);
-}
-
-.selector-color-invisible {
-  width: 0;
-  height: 0;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-}
-
-.boton-herramienta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  background-color: #00335f;
-  color: var(--texto-principal);
-  border: 1px solid rgba(237, 187, 0, 0.55);
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.boton-herramienta:hover,
-.boton-herramienta:focus {
-  background-color: rgba(165, 0, 68, 0.45);
-  color: #ffffff;
-}
-
-.boton-herramienta svg {
-  width: 0.9rem;
-  height: 0.9rem;
-  fill: var(--color-dorado);
-}
-
 .contenido-ide {
   min-height: 0;
 }
 
 .barra-lateral {
   width: 320px;
-  background: linear-gradient(180deg, var(--color-azul-profundo) 0%, var(--color-azul-oscuro) 100%);
   border-right: 2px solid var(--color-grana);
-  overflow-y: auto;
-}
-
-.subtitulo-panel {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--color-dorado);
-  letter-spacing: 0.03rem;
-  text-transform: uppercase;
-}
-
-.boton-explorador {
-  min-width: 38px;
-  background-color: rgba(165, 0, 68, 0.5);
-  color: var(--texto-principal);
-  border: 1px solid var(--color-dorado);
-  font-size: 0.72rem;
-  font-weight: 700;
-}
-
-.boton-explorador:hover {
-  background-color: rgba(165, 0, 68, 0.8);
-  color: #ffffff;
-}
-
-.arbol-archivos {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.nodo-directorio {
-  color: var(--color-dorado);
-  font-weight: 700;
-  font-size: 0.88rem;
-  padding: 0.2rem 0.5rem;
-}
-
-.nodo-archivo {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  text-align: left;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 0.35rem;
-  color: var(--texto-secundario);
-  padding: 0.3rem 0.5rem;
-}
-
-.nodo-archivo:hover {
-  background-color: rgba(237, 187, 0, 0.12);
-  border-color: rgba(237, 187, 0, 0.5);
-}
-
-.icono-archivo {
-  width: 2.3rem;
-  display: inline-flex;
-  justify-content: center;
-  font-family: "Consolas", "Courier New", monospace;
-  color: var(--color-dorado);
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.nodo-activo {
-  background-color: rgba(165, 0, 68, 0.5);
-  border-color: var(--color-dorado);
-  color: #ffffff;
-}
-
-.nivel-1 {
-  margin-left: 0.6rem;
-}
-
-.nivel-2 {
-  margin-left: 1.7rem;
+  overflow: hidden;
 }
 
 .panel-central {
@@ -218,9 +43,12 @@
 .barra-pestanas {
   min-height: 44px;
   background-color: var(--color-azul-oscuro);
-  border-bottom: 1px solid var(--color-grana);
+  border-bottom: 2px solid rgba(165, 0, 68, 0.7);
   gap: 0.35rem;
   overflow-x: auto;
+  padding-top: 0.35rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(237, 187, 0, 0.55) #00264d;
 }
 
 .texto-sin-pestanas {
@@ -233,20 +61,27 @@
   align-items: center;
   gap: 0.55rem;
   min-height: 32px;
-  padding: 0 0.65rem;
-  border: 1px solid rgba(165, 0, 68, 0.85);
-  border-radius: 0.4rem 0.4rem 0 0;
-  background-color: #00335f;
+  padding: 0.15rem 0.75rem 0.2rem;
+  border: 1px solid rgba(165, 0, 68, 0.95);
+  border-bottom-color: transparent;
+  border-radius: 0.6rem 0.6rem 0 0;
+  background: linear-gradient(180deg, #003f75 0%, #002f57 100%);
   color: var(--texto-principal);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .pestana-archivo:hover {
-  background-color: #003f75;
+  background: linear-gradient(180deg, rgba(165, 0, 68, 0.65) 0%, rgba(0, 58, 115, 0.95) 100%);
+  border-color: rgba(237, 187, 0, 0.65);
+  border-bottom-color: transparent;
 }
 
 .pestana-activa {
   border-color: var(--color-dorado);
-  border-bottom: 2px solid var(--color-dorado);
+  border-bottom-color: transparent;
+  background: linear-gradient(180deg, rgba(165, 0, 68, 0.9) 0%, rgba(0, 77, 152, 1) 100%);
+  box-shadow: 0 -2px 0 0 var(--color-dorado) inset;
   color: var(--color-dorado);
 }
 
@@ -266,6 +101,8 @@
   justify-content: center;
   align-items: center;
   color: var(--texto-secundario);
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .boton-cierre-pestana:hover {
@@ -282,21 +119,8 @@
 .panel-terminal {
   height: 220px;
   background-color: #001a33;
-}
-
-.terminal-contenido {
-  height: calc(100% - 30px);
-  overflow: auto;
-  border: 1px solid var(--color-grana);
-  border-radius: 0.4rem;
-  background-color: #000f21;
-  padding: 0.55rem 0.7rem;
-}
-
-.linea-terminal {
-  color: var(--texto-principal);
-  font-family: "Consolas", "Courier New", monospace;
-  font-size: 0.84rem;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .fondo-modal {
@@ -343,6 +167,20 @@
   border-color: var(--color-dorado);
   color: #ffffff;
   box-shadow: 0 0 0 0.1rem rgba(237, 187, 0, 0.25);
+}
+
+.boton-principal {
+  background-color: var(--color-grana);
+  border: 1px solid var(--color-dorado);
+  color: var(--texto-principal);
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.boton-principal:hover,
+.boton-principal:focus {
+  background-color: #830036;
+  color: #ffffff;
 }
 
 .boton-secundario {
